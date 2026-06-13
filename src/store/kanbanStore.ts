@@ -27,6 +27,7 @@ interface KanbanState {
   tasks: Task[];
   addTask: (title: string, columnId: ColumnId) => void;
   removeTask: (id: string) => void;
+  editTask: (id: string, newTitle: string) => void;
   /** Move task to a column at an optional index. Pure index-shift logic — covered by unit tests. */
   moveTask: (id: string, toColumn: ColumnId, toIndex?: number) => void;
   reorderWithinColumn: (columnId: ColumnId, fromIndex: number, toIndex: number) => void;
@@ -52,6 +53,13 @@ export const useKanbanStore = create<KanbanState>()(
         }));
       },
       removeTask: (id) => set((s) => ({ tasks: s.tasks.filter((t) => t.id !== id) })),
+      editTask: (id, newTitle) => {
+        const clean = sanitizeText(newTitle);
+        if (!clean) return;
+        set((s) => ({
+          tasks: s.tasks.map((t) => (t.id === id ? { ...t, title: clean } : t)),
+        }));
+      },
       moveTask: (id, toColumn, toIndex) =>
         set((s) => {
           const task = s.tasks.find((t) => t.id === id);

@@ -3,7 +3,7 @@
  * Proves that moving a card across columns shifts state indexes as intended.
  */
 import { describe, it, expect } from "vitest";
-import { computeMove, type Task } from "./kanbanStore";
+import { computeMove, useKanbanStore, type Task } from "./kanbanStore";
 import { sanitizeText, safeParse } from "@/lib/sanitize";
 
 const base: Task[] = [
@@ -60,5 +60,35 @@ describe("safeParse (corrupted localStorage)", () => {
   });
   it("parses valid JSON", () => {
     expect(safeParse('{"x":1}', {})).toEqual({ x: 1 });
+  });
+});
+
+describe("useKanbanStore editTask", () => {
+  it("edits the title of an existing task and sanitizes input", () => {
+    const store = useKanbanStore.getState();
+    store.reset();
+
+    const initialTasks = useKanbanStore.getState().tasks;
+    const target = initialTasks[0];
+    expect(target).toBeDefined();
+
+    useKanbanStore.getState().editTask(target.id, "  Updated Title <script>alert(1)</script>  ");
+
+    const updatedTasks = useKanbanStore.getState().tasks;
+    const updated = updatedTasks.find((t) => t.id === target.id);
+    expect(updated?.title).toBe("Updated Title scriptalert(1)/script");
+  });
+
+  it("does not edit title if sanitized text is empty", () => {
+    const store = useKanbanStore.getState();
+    store.reset();
+
+    const target = useKanbanStore.getState().tasks[0];
+    const oldTitle = target.title;
+
+    useKanbanStore.getState().editTask(target.id, "   <>   ");
+
+    const updated = useKanbanStore.getState().tasks.find((t) => t.id === target.id);
+    expect(updated?.title).toBe(oldTitle);
   });
 });

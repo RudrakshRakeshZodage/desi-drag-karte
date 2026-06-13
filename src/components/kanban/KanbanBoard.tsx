@@ -32,10 +32,16 @@ export function KanbanBoard() {
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const [liveMsg, setLiveMsg] = useState("");
 
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+  const pointerSensorOptions = useMemo(() => ({ activationConstraint: { distance: 5 } }), []);
+  const keyboardSensorOptions = useMemo(
+    () => ({ coordinateGetter: sortableKeyboardCoordinates }),
+    [],
   );
+
+  const pointerSensor = useSensor(PointerSensor, pointerSensorOptions);
+  const keyboardSensor = useSensor(KeyboardSensor, keyboardSensorOptions);
+
+  const sensors = useSensors(pointerSensor, keyboardSensor);
 
   const tasksByColumn = useMemo(() => {
     const out: Record<ColumnId, Task[]> = { todo: [], progress: [], done: [] };

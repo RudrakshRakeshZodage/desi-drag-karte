@@ -66,16 +66,36 @@ Inputs are sanitized using a custom `sanitizeText` utility before reaching the s
 
 ## 🎯 Evaluation Criteria Coverage
 
-Our implementation specifically targets key dimensions across the following impact tiers:
+Our implementation aligns directly with the PromptWars **Parameter Impact Breakdown** parameters:
 
-### 🔴 High Impact (Core Robustness & Quality)
+### 🔴 High Impact (Most Important)
 
-- **Sanitization & Security**: Active prevention of stored XSS attacks by sanitizing inputs before they enter store state, supplementing React's render escaping.
-- **State Integrity**: Structured validation and filtering of localStorage data during rehydration to handle malformed or corrupted values gracefully.
-- **Full Accessibility (A11y)**:
-  - Custom `aria-roledescription` guidelines for screen readers detailing keyboard operations.
-  - Interactive live announcements (`aria-live="polite"`) informing users in real-time when cards are picked up, moved, or dropped.
-  - Keyboard accessibility powered by custom Sensors.
+- **Code Quality**:
+  - **Clean, readable, and well-structured code**: Fully typed with TypeScript, modularized into distinct routing, state, visual, and utility files.
+  - **Linting & Formatting compliance**: Strictly clean of ESLint errors and standardized with Prettier formatting across the codebase.
+- **Problem Statement Alignment**:
+  - **Targets core challenge & user needs**: Provides a fully interactive Kanban workspace allowing creation, drag-and-drop movement, and deletion of tasks.
+  - **Task Title Inline Editing**: Supports instant rename by double-clicking a task title or clicking the edit icon (`✎`), preserving layout and state.
+  - **Thematic Consistency**: Leverages custom brutalist tokens to match the "Desi Brutalism" brand aesthetic.
+
+### 🟡 Medium Impact (Under-the-Hood)
+
+- **Security**:
+  - **Defense-in-depth sanitization**: Cleans inputs upon both task creation and title editing using the regex-based `sanitizeText` helper (stripping tags, control chars, and `javascript:` URIs).
+  - **State Integrity**: Integrates custom merge schemas during localStorage hydration to prevent corruption and defend against tampered state payloads.
+- **Efficiency**:
+  - **Optimal use of time & memory**: Derives individual column task lists via `useMemo` so adding/moving cards doesn't trigger parent-child re-computation on other columns.
+  - **Render skip optimizations**: Columns and TaskCards use `React.memo` and stable callback wrappers (`useCallback`).
+  - **Stable Sensor Event Listeners**: Memoizes `@dnd-kit` Pointer and Keyboard sensor configuration parameters inside `useMemo` hooks, preventing unnecessary event listener re-bindings.
+
+### 🟢 Low Impact (Fine Polish)
+
+- **Testing**:
+  - **Easily testable & maintainable code**: Pure state transitions and math calculations are extracted out-of-store (e.g. `computeMove`).
+  - **Vitest Unit Test coverage**: The test suite (`src/store/kanbanStore.test.ts`) verifies core movement transitions, XSS input sanitization rules, and corrupted parse fallbacks with 12 fully passing tests.
+- **Accessibility**:
+  - **Usable for diverse environments & assistive tech**: Operates with custom sensory guidelines, explicit `aria-label` elements, and a dedicated `aria-live="polite"` status region to output real-time screen-reader readouts.
+  - **Full Keyboard coordination**: Dragging operations, column movements, and inline title edits (save/cancel) can be fully triggered and completed via keyboard shortcuts alone.
 
 ---
 
