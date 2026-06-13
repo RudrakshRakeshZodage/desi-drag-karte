@@ -68,6 +68,19 @@ function TaskCardImpl({ task, onRemove, accentClass }: Props) {
     [saveEdit, cancelEdit],
   );
 
+  const handleKeyDownOnCard = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (isEditing) return;
+      if (e.key === "Enter") {
+        const target = e.target as HTMLElement;
+        if (target.tagName !== "BUTTON" && target.tagName !== "INPUT") {
+          startEdit(e);
+        }
+      }
+    },
+    [isEditing, startEdit],
+  );
+
   const dragProps = isEditing ? {} : { ...attributes, ...listeners };
 
   return (
@@ -76,9 +89,10 @@ function TaskCardImpl({ task, onRemove, accentClass }: Props) {
       style={style}
       className={`desi-border desi-shadow-sm desi-press ${accentClass} p-3 flex items-start justify-between gap-2 cursor-grab active:cursor-grabbing select-none focus:outline-none focus-visible:ring-4 focus-visible:ring-black`}
       {...dragProps}
+      onKeyDown={handleKeyDownOnCard}
       // A11y: screen readers announce role + draggable state; @dnd-kit also
       // wires keyboard sensor (Space to pick up, arrows to move, Enter to drop).
-      aria-roledescription="Draggable task. Press space to pick up, arrow keys to move between columns, space again to drop."
+      aria-roledescription="Draggable task. Press space to pick up, arrow keys to move between columns, space again to drop. Press enter to edit title."
     >
       {isEditing ? (
         <div

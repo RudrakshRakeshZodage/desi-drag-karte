@@ -64,7 +64,10 @@ export function KanbanBoard() {
       const overId = String(over.id);
       if (activeId === overId) return;
 
-      const fromTask = tasks.find((t) => t.id === activeId);
+      // EFFICIENCY: Read tasks directly from the Zustand store instead of reactive component state
+      // dependency. This keeps the drag-end callback referentially stable across all card updates.
+      const currentTasks = useKanbanStore.getState().tasks;
+      const fromTask = currentTasks.find((t) => t.id === activeId);
       if (!fromTask) return;
 
       // Drop target is either a column container or another task.
@@ -79,7 +82,9 @@ export function KanbanBoard() {
         targetIndex = undefined;
       } else if (overData?.type === "task" && overData.task) {
         targetColumn = overData.task.columnId;
-        const colTasks = tasks.filter((t) => t.columnId === targetColumn && t.id !== activeId);
+        const colTasks = currentTasks.filter(
+          (t) => t.columnId === targetColumn && t.id !== activeId,
+        );
         targetIndex = colTasks.findIndex((t) => t.id === overData.task!.id);
       } else {
         return;
@@ -89,7 +94,7 @@ export function KanbanBoard() {
       const colMeta = COLUMNS.find((c) => c.id === targetColumn);
       setLiveMsg(`Task moved to ${colMeta?.title ?? targetColumn}`);
     },
-    [tasks, moveTask],
+    [moveTask],
   );
 
   return (
