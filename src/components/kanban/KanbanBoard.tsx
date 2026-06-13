@@ -62,7 +62,9 @@ export function KanbanBoard() {
       if (!fromTask) return;
 
       // Drop target is either a column container or another task.
-      const overData = over.data.current as { type?: string; columnId?: ColumnId; task?: Task } | undefined;
+      const overData = over.data.current as
+        | { type?: string; columnId?: ColumnId; task?: Task }
+        | undefined;
       let targetColumn: ColumnId;
       let targetIndex: number | undefined;
 
@@ -95,8 +97,7 @@ export function KanbanBoard() {
           onDragStart: ({ active }) => `Picked up task ${String(active.id)}`,
           onDragOver: ({ over }) =>
             over ? `Hovering over ${String(over.id)}` : `Not over a droppable area`,
-          onDragEnd: ({ over }) =>
-            over ? `Dropped on ${String(over.id)}` : `Drop cancelled`,
+          onDragEnd: ({ over }) => (over ? `Dropped on ${String(over.id)}` : `Drop cancelled`),
           onDragCancel: () => `Drag cancelled`,
         },
       }}

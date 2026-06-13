@@ -78,17 +78,37 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Lovable App" },
-      { name: "description", content: "Desi Flow Board is a drag-and-drop Kanban-style to-do list application with a vibrant Indian-inspired brutalist design." },
+      {
+        name: "description",
+        content:
+          "Desi Flow Board is a drag-and-drop Kanban-style to-do list application with a vibrant Indian-inspired brutalist design.",
+      },
       { name: "author", content: "Lovable" },
       { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Desi Flow Board is a drag-and-drop Kanban-style to-do list application with a vibrant Indian-inspired brutalist design." },
+      {
+        property: "og:description",
+        content:
+          "Desi Flow Board is a drag-and-drop Kanban-style to-do list application with a vibrant Indian-inspired brutalist design.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "Desi Flow Board is a drag-and-drop Kanban-style to-do list application with a vibrant Indian-inspired brutalist design." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8a8ce8a5-c613-413c-8f9c-191ad8447de7/id-preview-fb1ee3fd--7649e389-3de5-4706-83ae-c9b3fae9a4be.lovable.app-1781328555482.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8a8ce8a5-c613-413c-8f9c-191ad8447de7/id-preview-fb1ee3fd--7649e389-3de5-4706-83ae-c9b3fae9a4be.lovable.app-1781328555482.png" },
+      {
+        name: "twitter:description",
+        content:
+          "Desi Flow Board is a drag-and-drop Kanban-style to-do list application with a vibrant Indian-inspired brutalist design.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8a8ce8a5-c613-413c-8f9c-191ad8447de7/id-preview-fb1ee3fd--7649e389-3de5-4706-83ae-c9b3fae9a4be.lovable.app-1781328555482.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8a8ce8a5-c613-413c-8f9c-191ad8447de7/id-preview-fb1ee3fd--7649e389-3de5-4706-83ae-c9b3fae9a4be.lovable.app-1781328555482.png",
+      },
     ],
     links: [
       {

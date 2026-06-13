@@ -14,13 +14,16 @@ interface Props {
 
 const ACCENTS: Record<ColumnType["accent"], { header: string; card: string }> = {
   marigold: { header: "bg-[#FF9933]", card: "bg-[#FFD9B3]" },
-  haldi:    { header: "bg-[#E6B800]", card: "bg-[#FFF1B3]" },
-  peacock:  { header: "bg-[#00A86B]", card: "bg-[#B3E5D1]" },
+  haldi: { header: "bg-[#E6B800]", card: "bg-[#FFF1B3]" },
+  peacock: { header: "bg-[#00A86B]", card: "bg-[#B3E5D1]" },
 };
 
 function ColumnImpl({ column, tasks, onAdd, onRemove }: Props) {
   const [draft, setDraft] = useState("");
-  const { setNodeRef, isOver } = useDroppable({ id: column.id, data: { type: "column", columnId: column.id } });
+  const { setNodeRef, isOver } = useDroppable({
+    id: column.id,
+    data: { type: "column", columnId: column.id },
+  });
   const accent = ACCENTS[column.accent];
 
   // EFFICIENCY: ids array memoized so SortableContext doesn't recreate each render.

@@ -18,9 +18,9 @@ export interface Column {
 }
 
 export const COLUMNS: Column[] = [
-  { id: "todo",     title: "Aaj Ka Kaam",   subtitle: "To Do",       accent: "marigold" },
+  { id: "todo", title: "Aaj Ka Kaam", subtitle: "To Do", accent: "marigold" },
   { id: "progress", title: "Chal Raha Hai", subtitle: "In Progress", accent: "haldi" },
-  { id: "done",     title: "Ho Gaya",       subtitle: "Done",        accent: "peacock" },
+  { id: "done", title: "Ho Gaya", subtitle: "Done", accent: "peacock" },
 ];
 
 interface KanbanState {
@@ -35,9 +35,9 @@ interface KanbanState {
 
 const seed: Task[] = [
   { id: "t1", title: "Buy genda phool for Diwali", columnId: "todo" },
-  { id: "t2", title: "Call Dadi at 6pm",          columnId: "todo" },
-  { id: "t3", title: "Ship hackathon MVP",        columnId: "progress" },
-  { id: "t4", title: "Drink chai",                columnId: "done" },
+  { id: "t2", title: "Call Dadi at 6pm", columnId: "todo" },
+  { id: "t3", title: "Ship hackathon MVP", columnId: "progress" },
+  { id: "t4", title: "Drink chai", columnId: "done" },
 ];
 
 export const useKanbanStore = create<KanbanState>()(
@@ -51,8 +51,7 @@ export const useKanbanStore = create<KanbanState>()(
           tasks: [...s.tasks, { id: crypto.randomUUID(), title: clean, columnId }],
         }));
       },
-      removeTask: (id) =>
-        set((s) => ({ tasks: s.tasks.filter((t) => t.id !== id) })),
+      removeTask: (id) => set((s) => ({ tasks: s.tasks.filter((t) => t.id !== id) })),
       moveTask: (id, toColumn, toIndex) =>
         set((s) => {
           const task = s.tasks.find((t) => t.id === id);

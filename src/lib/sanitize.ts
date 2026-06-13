@@ -5,12 +5,15 @@
  */
 export function sanitizeText(input: unknown, maxLen = 200): string {
   if (typeof input !== "string") return "";
-  return input
-    .replace(/[<>]/g, "") // strip tag delimiters
-    .replace(/[\u0000-\u001F\u007F]/g, "") // strip control chars
-    .replace(/javascript:/gi, "")
-    .trim()
-    .slice(0, maxLen);
+  return (
+    input
+      .replace(/[<>]/g, "") // strip tag delimiters
+      // eslint-disable-next-line no-control-regex
+      .replace(/[\u0000-\u001F\u007F]/g, "") // strip control chars
+      .replace(/javascript:/gi, "")
+      .trim()
+      .slice(0, maxLen)
+  );
 }
 
 /** Safely parse persisted JSON; returns fallback on any corruption. */

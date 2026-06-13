@@ -15,8 +15,10 @@ interface Props {
  * useCallback so memo's referential equality check actually pays off.
  */
 function TaskCardImpl({ task, onRemove, accentClass }: Props) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id: task.id, data: { type: "task", task } });
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: task.id,
+    data: { type: "task", task },
+  });
 
   const style = {
     transform: CSS.Transform.toString(transform),
