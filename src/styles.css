@@ -142,3 +142,57 @@
     color: var(--color-foreground);
   }
 }
+
+/* ============================================================
+   DESI-BRUTALISM THEME
+   Indian vernacular neo-brutalism: marigold, gulabi, peacock,
+   haldi on khadi white with pitch-black hard shadows.
+   ============================================================ */
+
+@theme inline {
+  --color-desi-bg: #F5F5DC;
+  --color-desi-ink: #000000;
+  --color-marigold: #FF9933;
+  --color-gulabi: #E0115F;
+  --color-peacock: #00A86B;
+  --color-haldi: #E6B800;
+  --font-display: "Bungee", "Arial Black", system-ui, sans-serif;
+  --font-body: "Space Grotesk", system-ui, sans-serif;
+}
+
+.desi-root {
+  background-color: #F5F5DC;
+  color: #000;
+  font-family: var(--font-body);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(0,0,0,0.04) 0 2px, transparent 2px 14px),
+    repeating-linear-gradient(-45deg, rgba(0,0,0,0.04) 0 2px, transparent 2px 14px);
+}
+
+.desi-display { font-family: var(--font-display); letter-spacing: 0.02em; }
+
+.desi-border { border: 5px solid #000; }
+.desi-shadow { box-shadow: 8px 8px 0 0 #000; transition: box-shadow 120ms ease, transform 120ms ease; }
+.desi-shadow-sm { box-shadow: 5px 5px 0 0 #000; transition: box-shadow 120ms ease, transform 120ms ease; }
+.desi-press:hover, .desi-press:focus-visible { box-shadow: 2px 2px 0 0 #000; transform: translate(3px, 3px); }
+.desi-press:active { box-shadow: 0 0 0 0 #000; transform: translate(5px, 5px); }
+
+.desi-block-print {
+  background-image:
+    linear-gradient(135deg, transparent 46%, #000 46% 54%, transparent 54%),
+    linear-gradient(45deg, transparent 46%, #000 46% 54%, transparent 54%);
+  background-size: 14px 14px;
+}
+
+.desi-stepwell-top {
+  background:
+    linear-gradient(#000 0 0) left top / 16px 6px repeat-x,
+    linear-gradient(#000 0 0) left calc(top + 6px) / 8px 6px repeat-x;
+}
+
+.desi-card-dragging { transform: rotate(-2deg) scale(1.02); box-shadow: 12px 12px 0 0 #000 !important; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
